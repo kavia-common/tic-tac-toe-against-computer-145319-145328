@@ -1,104 +1,203 @@
-/* CSS Variables for Theme Management */
+/* Ocean Professional Theme CSS
+   Modern, minimalist design with blue & amber accents, subtle shadows & gradients.
+*/
+
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --ocean-primary: #2563EB;
+  --ocean-secondary: #F59E0B;
+  --ocean-success: #F59E0B;
+  --ocean-error: #EF4444;
+  --ocean-bg: #f9fafb;
+  --ocean-surface: #ffffff;
+  --ocean-text: #111827;
+  --ocean-grad-a: #3b82f680; /* blue-500/50 */
+  --ocean-grad-b: #f3f4f6;   /* gray-100 */
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* {
+  box-sizing: border-box;
 }
 
-.App {
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1200px 800px at 50% -10%, var(--ocean-grad-a), var(--ocean-grad-b)), var(--ocean-bg);
+  color: var(--ocean-text);
+}
+
+/* App container */
+.ocean-app {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+/* Card */
+.ocean-card {
+  width: 100%;
+  max-width: 560px;
+  background: linear-gradient(180deg, #ffffff, #fcfcfd);
+  border-radius: 20px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.08),
+    0 1px 2px rgba(0,0,0,0.06);
+  padding: 28px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Header */
+.ocean-header {
   text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-bottom: 20px;
+}
+.ocean-title {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.4px;
+  color: var(--ocean-text);
+}
+.ocean-subtitle {
+  margin: 6px 0 0;
+  color: #4b5563;
+  font-size: 14px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Board Grid */
+.ttt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 360px;
+  margin: 8px auto 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ttt-square {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, #ffffff, #f9fafb);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.8),
+    0 8px 16px rgba(0,0,0,0.06);
+  color: var(--ocean-text);
+  font-weight: 700;
+  font-size: clamp(28px, 6vw, 44px);
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 200ms ease;
+  user-select: none;
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.ttt-square:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: var(--ocean-primary);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    0 12px 22px rgba(37, 99, 235, 0.18);
+}
+
+.ttt-square:disabled {
+  cursor: default;
+  opacity: 0.95;
+}
+
+.ttt-square[data-winning="true"] {
+  background: linear-gradient(180deg, #ffffff, #fff8e7);
+  border-color: var(--ocean-secondary);
+  box-shadow:
+    inset 0 0 0 2px rgba(245, 158, 11, 0.25),
+    0 14px 28px rgba(245, 158, 11, 0.2);
+}
+
+/* Status */
+.ocean-status {
+  text-align: center;
+  font-size: 16px;
+  margin: 8px auto 18px;
+  padding: 10px 14px;
+  width: fit-content;
+  border-radius: 12px;
+  background: #f3f4f6;
+  color: #1f2937;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.ocean-status[data-variant="success"] {
+  background: #fff7ed;
+  color: #7c2d12;
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.ocean-status[data-variant="error"] {
+  background: #fee2e2;
+  color: #7f1d1d;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+/* Button */
+.ocean-button {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
-}
-
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+  gap: 8px;
+  margin: 0 auto;
+  padding: 12px 18px;
+  background: linear-gradient(180deg, #2563EB, #1d4ed8);
+  color: white;
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 10px 18px rgba(37, 99, 235, 0.28),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.ocean-button:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 14px 24px rgba(37, 99, 235, 0.34),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+  filter: saturate(1.05);
 }
 
-.theme-toggle:active {
+.ocean-button:active {
   transform: translateY(0);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Footer */
+.ocean-footer {
+  margin-top: 14px;
+  text-align: center;
+  color: #6b7280;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+/* Main spacing */
+.ocean-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .ocean-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+  .ttt-grid {
+    gap: 10px;
   }
 }
